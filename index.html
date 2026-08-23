@@ -1,0 +1,2072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Academic Assistant</title>
+
+    <style>
+
+        /* =========================================================
+           RESET
+        ========================================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        /* =========================================================
+           BODY
+        ========================================================= */
+
+        body {
+            font-family:
+                Inter,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                Arial,
+                sans-serif;
+
+            background: #f6f7f9;
+            color: #1f2937;
+
+            height: 100vh;
+            overflow: hidden;
+        }
+
+
+        /* =========================================================
+           APP
+        ========================================================= */
+
+        .app {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+
+        /* =========================================================
+           HEADER
+        ========================================================= */
+
+        .header {
+            height: 68px;
+
+            background: #ffffff;
+
+            border-bottom: 1px solid #e5e7eb;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 26px;
+
+            flex-shrink: 0;
+        }
+
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+
+        .brand-logo {
+            width: 40px;
+            height: 40px;
+
+            border-radius: 10px;
+
+            background: #1f3a5f;
+
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 20px;
+
+            box-shadow:
+                0 5px 14px rgba(31, 58, 95, 0.18);
+        }
+
+
+        .brand-info h1 {
+            font-size: 16px;
+            font-weight: 700;
+
+            color: #172033;
+        }
+
+
+        .brand-info p {
+            margin-top: 2px;
+
+            font-size: 11px;
+
+            color: #8a93a3;
+        }
+
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+
+        .online-status {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+
+            padding: 7px 11px;
+
+            border: 1px solid #dfe6df;
+
+            border-radius: 20px;
+
+            background: #f7faf7;
+
+            color: #4b6954;
+
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+
+        .online-dot {
+            width: 6px;
+            height: 6px;
+
+            border-radius: 50%;
+
+            background: #4e8a5c;
+        }
+
+
+        .new-chat {
+            border: none;
+
+            background: transparent;
+
+            padding: 8px 11px;
+
+            border-radius: 8px;
+
+            color: #737d8d;
+
+            font-size: 12px;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+
+        .new-chat:hover {
+            background: #f1f3f5;
+            color: #1f2937;
+        }
+
+
+        /* =========================================================
+           MAIN AREA
+        ========================================================= */
+
+        .main {
+            flex: 1;
+
+            display: flex;
+
+            overflow: hidden;
+        }
+
+
+        /* =========================================================
+           STUDY SIDEBAR
+        ========================================================= */
+
+        .sidebar {
+            width: 220px;
+
+            background: #ffffff;
+
+            border-right: 1px solid #e5e7eb;
+
+            padding: 22px 14px;
+
+            flex-shrink: 0;
+        }
+
+
+        .sidebar-title {
+            padding: 0 10px;
+
+            margin-bottom: 12px;
+
+            color: #9aa2af;
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.7px;
+        }
+
+
+        .sidebar-item {
+            width: 100%;
+
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+
+            border: none;
+
+            background: transparent;
+
+            padding: 10px;
+
+            margin-bottom: 3px;
+
+            border-radius: 8px;
+
+            color: #596273;
+
+            font-size: 12px;
+
+            text-align: left;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+
+        .sidebar-item:hover {
+            background: #f4f6f8;
+
+            color: #1f2937;
+        }
+
+
+        .sidebar-item.active {
+            background: #eef2f6;
+
+            color: #1f3a5f;
+
+            font-weight: 600;
+        }
+
+
+        .sidebar-icon {
+            width: 20px;
+
+            text-align: center;
+
+            font-size: 14px;
+        }
+
+
+        .sidebar-divider {
+            height: 1px;
+
+            background: #eceef1;
+
+            margin: 18px 8px;
+        }
+
+
+        .study-tip {
+            margin: 20px 8px 0;
+
+            padding: 13px;
+
+            border-radius: 10px;
+
+            background: #f7f8fa;
+
+            border: 1px solid #e8eaed;
+        }
+
+
+        .study-tip-title {
+            font-size: 11px;
+
+            font-weight: 700;
+
+            color: #374151;
+
+            margin-bottom: 6px;
+        }
+
+
+        .study-tip p {
+            font-size: 10px;
+
+            line-height: 1.5;
+
+            color: #8a93a3;
+        }
+
+
+        /* =========================================================
+           CHAT AREA
+        ========================================================= */
+
+        .chat-area {
+            flex: 1;
+
+            display: flex;
+
+            justify-content: center;
+
+            overflow: hidden;
+        }
+
+
+        .chat {
+            width: 100%;
+
+            max-width: 940px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            overflow: hidden;
+        }
+
+
+        /* =========================================================
+           MESSAGES
+        ========================================================= */
+
+        .messages {
+            flex: 1;
+
+            overflow-y: auto;
+
+            padding: 30px 28px 20px;
+
+            scroll-behavior: smooth;
+        }
+
+
+        .messages::-webkit-scrollbar {
+            width: 6px;
+        }
+
+
+        .messages::-webkit-scrollbar-thumb {
+            background: #d7dbe0;
+
+            border-radius: 10px;
+        }
+
+
+        /* =========================================================
+           WELCOME
+        ========================================================= */
+
+        .welcome {
+            max-width: 760px;
+
+            margin: 0 auto;
+
+            padding: 26px 10px 30px;
+        }
+
+
+        .welcome-top {
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+
+            margin-bottom: 18px;
+        }
+
+
+        .welcome-book {
+            width: 54px;
+            height: 54px;
+
+            border-radius: 13px;
+
+            background: #1f3a5f;
+
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 25px;
+
+            box-shadow:
+                0 8px 20px rgba(31, 58, 95, 0.16);
+        }
+
+
+        .welcome-label {
+            font-size: 11px;
+
+            color: #8b94a3;
+
+            margin-bottom: 4px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.7px;
+
+            font-weight: 700;
+        }
+
+
+        .welcome h2 {
+            font-size: 28px;
+
+            line-height: 1.25;
+
+            color: #172033;
+        }
+
+
+        .welcome-description {
+            max-width: 670px;
+
+            color: #707989;
+
+            font-size: 14px;
+
+            line-height: 1.7;
+
+            margin-bottom: 25px;
+        }
+
+
+        /* =========================================================
+           STUDY CATEGORIES
+        ========================================================= */
+
+        .section-heading {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-bottom: 10px;
+        }
+
+
+        .section-heading h3 {
+            font-size: 12px;
+
+            color: #4b5563;
+
+            font-weight: 700;
+        }
+
+
+        .section-heading span {
+            font-size: 10px;
+
+            color: #9aa2af;
+        }
+
+
+        .study-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 9px;
+        }
+
+
+        .study-card {
+            background: #ffffff;
+
+            border: 1px solid #e3e6ea;
+
+            border-radius: 10px;
+
+            padding: 14px;
+
+            text-align: left;
+
+            cursor: pointer;
+
+            transition:
+                transform 0.2s,
+                border-color 0.2s,
+                box-shadow 0.2s;
+        }
+
+
+        .study-card:hover {
+            transform: translateY(-2px);
+
+            border-color: #b9c5d2;
+
+            box-shadow:
+                0 7px 18px rgba(30, 40, 55, 0.06);
+        }
+
+
+        .card-icon {
+            width: 29px;
+            height: 29px;
+
+            border-radius: 7px;
+
+            background: #eef2f6;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 14px;
+
+            margin-bottom: 10px;
+        }
+
+
+        .study-card h4 {
+            font-size: 12px;
+
+            color: #303846;
+
+            margin-bottom: 4px;
+        }
+
+
+        .study-card p {
+            font-size: 10px;
+
+            color: #8a93a3;
+
+            line-height: 1.45;
+        }
+
+
+        /* =========================================================
+           MESSAGE
+        ========================================================= */
+
+        .message {
+            display: flex;
+
+            gap: 11px;
+
+            margin-bottom: 24px;
+
+            animation: messageIn 0.25s ease;
+        }
+
+
+        @keyframes messageIn {
+
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+
+        .message.user {
+            justify-content: flex-end;
+        }
+
+
+        .avatar {
+            width: 32px;
+            height: 32px;
+
+            flex-shrink: 0;
+
+            border-radius: 8px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 13px;
+
+            font-weight: 700;
+        }
+
+
+        .assistant .avatar {
+            background: #1f3a5f;
+
+            color: white;
+        }
+
+
+        .user .avatar {
+            background: #e9edf1;
+
+            color: #566171;
+
+            order: 2;
+        }
+
+
+        .message-content {
+            max-width: 76%;
+        }
+
+
+        .message-name {
+            font-size: 10px;
+
+            color: #89919f;
+
+            margin-bottom: 5px;
+
+            font-weight: 600;
+        }
+
+
+        .user .message-name {
+            text-align: right;
+        }
+
+
+        .bubble {
+            padding: 12px 15px;
+
+            border-radius: 12px;
+
+            font-size: 13px;
+
+            line-height: 1.65;
+
+            white-space: pre-wrap;
+
+            word-break: break-word;
+        }
+
+
+        .assistant .bubble {
+            background: #ffffff;
+
+            border: 1px solid #e2e5e9;
+
+            border-top-left-radius: 4px;
+
+            color: #343b48;
+        }
+
+
+        .user .bubble {
+            background: #1f3a5f;
+
+            color: white;
+
+            border-top-right-radius: 4px;
+        }
+
+
+        /* =========================================================
+           TYPING
+        ========================================================= */
+
+        .typing {
+            display: none;
+
+            gap: 11px;
+
+            margin-bottom: 23px;
+        }
+
+
+        .typing.show {
+            display: flex;
+        }
+
+
+        .typing-bubble {
+            background: #ffffff;
+
+            border: 1px solid #e2e5e9;
+
+            border-radius: 12px;
+
+            border-top-left-radius: 4px;
+
+            padding: 13px 16px;
+
+            display: flex;
+
+            gap: 5px;
+
+            align-items: center;
+        }
+
+
+        .typing-dot {
+            width: 5px;
+            height: 5px;
+
+            border-radius: 50%;
+
+            background: #7c8795;
+
+            animation: typing 1.3s infinite;
+        }
+
+
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.15s;
+        }
+
+
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+
+        @keyframes typing {
+
+            0%,
+            60%,
+            100% {
+                transform: translateY(0);
+
+                opacity: 0.4;
+            }
+
+            30% {
+                transform: translateY(-4px);
+
+                opacity: 1;
+            }
+
+        }
+
+
+        /* =========================================================
+           INPUT AREA
+        ========================================================= */
+
+        .input-area {
+            padding: 10px 25px 18px;
+        }
+
+
+        .input-box {
+            background: #ffffff;
+
+            border: 1px solid #dfe3e8;
+
+            border-radius: 13px;
+
+            padding: 7px;
+
+            display: flex;
+
+            align-items: flex-end;
+
+            box-shadow:
+                0 5px 20px rgba(25, 35, 50, 0.05);
+
+            transition:
+                border-color 0.2s,
+                box-shadow 0.2s;
+        }
+
+
+        .input-box:focus-within {
+            border-color: #aebbc9;
+
+            box-shadow:
+                0 5px 20px rgba(31, 58, 95, 0.08);
+        }
+
+
+        textarea {
+            flex: 1;
+
+            border: none;
+
+            outline: none;
+
+            resize: none;
+
+            background: transparent;
+
+            padding: 10px 11px;
+
+            font-family: inherit;
+
+            font-size: 13px;
+
+            color: #1f2937;
+
+            line-height: 1.5;
+
+            max-height: 130px;
+        }
+
+
+        textarea::placeholder {
+            color: #9aa2ae;
+        }
+
+
+        .send-button {
+            width: 39px;
+            height: 39px;
+
+            border: none;
+
+            border-radius: 9px;
+
+            background: #1f3a5f;
+
+            color: white;
+
+            cursor: pointer;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            transition:
+                background 0.2s,
+                transform 0.2s;
+        }
+
+
+        .send-button:hover {
+            background: #172d4a;
+
+            transform: translateY(-1px);
+        }
+
+
+        .send-button:disabled {
+            background: #aeb6c0;
+
+            cursor: not-allowed;
+
+            transform: none;
+        }
+
+
+        .send-icon {
+            width: 17px;
+            height: 17px;
+        }
+
+
+        .input-footer {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 6px 4px 0;
+        }
+
+
+        .input-note {
+            font-size: 9px;
+
+            color: #9ba2ad;
+        }
+
+
+        .input-note strong {
+            color: #737d8b;
+        }
+
+
+        .shortcut {
+            font-size: 9px;
+
+            color: #a3a9b3;
+        }
+
+
+        /* =========================================================
+           MOBILE
+        ========================================================= */
+
+        @media (max-width: 800px) {
+
+            .sidebar {
+                display: none;
+            }
+
+            .header {
+                padding: 0 15px;
+            }
+
+            .brand-info p {
+                display: none;
+            }
+
+            .online-status {
+                display: none;
+            }
+
+            .messages {
+                padding: 20px 14px;
+            }
+
+            .welcome {
+                padding-top: 18px;
+            }
+
+            .welcome h2 {
+                font-size: 23px;
+            }
+
+            .study-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .message-content {
+                max-width: 85%;
+            }
+
+            .input-area {
+                padding: 8px 10px 13px;
+            }
+
+            .shortcut {
+                display: none;
+            }
+        }
+
+
+        @media (max-width: 480px) {
+
+            .study-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .welcome-top {
+                align-items: flex-start;
+            }
+
+            .welcome-book {
+                width: 45px;
+                height: 45px;
+            }
+
+            .welcome h2 {
+                font-size: 21px;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+<div class="app">
+
+
+    <!-- =========================================================
+         HEADER
+    ========================================================== -->
+
+    <header class="header">
+
+        <div class="brand">
+
+            <div class="brand-logo">
+                📚
+            </div>
+
+            <div class="brand-info">
+
+                <h1>
+                    Academic Assistant
+                </h1>
+
+                <p>
+                    Learn smarter. Understand better.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="header-actions">
+
+            <div class="online-status">
+
+                <span class="online-dot"></span>
+
+                Study AI Online
+
+            </div>
+
+
+            <button
+                class="new-chat"
+                onclick="clearChat()"
+            >
+                + New Chat
+            </button>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =========================================================
+         MAIN
+    ========================================================== -->
+
+    <main class="main">
+
+
+        <!-- =====================================================
+             SIDEBAR
+        ====================================================== -->
+
+        <aside class="sidebar">
+
+            <div class="sidebar-title">
+                Study Tools
+            </div>
+
+
+            <button
+                class="sidebar-item active"
+                onclick="setPrompt('Help me understand a difficult academic concept.')"
+            >
+
+                <span class="sidebar-icon">
+                    ◈
+                </span>
+
+                Explain a Concept
+
+            </button>
+
+
+            <button
+                class="sidebar-item"
+                onclick="setPrompt('Help me prepare a structured study plan for my exam.')"
+            >
+
+                <span class="sidebar-icon">
+                    ◷
+                </span>
+
+                Exam Preparation
+
+            </button>
+
+
+            <button
+                class="sidebar-item"
+                onclick="setPrompt('Solve this academic problem step by step and explain the reasoning.')"
+            >
+
+                <span class="sidebar-icon">
+                    ∑
+                </span>
+
+                Problem Solving
+
+            </button>
+
+
+            <button
+                class="sidebar-item"
+                onclick="setPrompt('Help me understand this programming problem and explain the solution.')"
+            >
+
+                <span class="sidebar-icon">
+                    &lt;/&gt;
+                </span>
+
+                Programming
+
+            </button>
+
+
+            <button
+                class="sidebar-item"
+                onclick="setPrompt('Create concise revision notes for this topic.')"
+            >
+
+                <span class="sidebar-icon">
+                    ≡
+                </span>
+
+                Revision Notes
+
+            </button>
+
+
+            <button
+                class="sidebar-item"
+                onclick="setPrompt('Create practice questions for this academic topic.')"
+            >
+
+                <span class="sidebar-icon">
+                    ?
+                </span>
+
+                Practice Questions
+
+            </button>
+
+
+            <div class="sidebar-divider"></div>
+
+
+            <div class="sidebar-title">
+                Learning
+            </div>
+
+
+            <button
+                class="sidebar-item"
+                onclick="setPrompt('Explain this topic using a simple real-world example.')"
+            >
+
+                <span class="sidebar-icon">
+                    ◉
+                </span>
+
+                Examples
+
+            </button>
+
+
+            <button
+                class="sidebar-item"
+                onclick="setPrompt('Compare these two academic concepts in a simple table.')"
+            >
+
+                <span class="sidebar-icon">
+                    ⇄
+                </span>
+
+                Compare Topics
+
+            </button>
+
+
+            <div class="study-tip">
+
+                <div class="study-tip-title">
+                    Study Tip
+                </div>
+
+                <p>
+                    Understanding the reason behind an answer
+                    makes revision easier and improves long-term
+                    retention.
+                </p>
+
+            </div>
+
+        </aside>
+
+
+
+        <!-- =====================================================
+             CHAT
+        ====================================================== -->
+
+        <section class="chat-area">
+
+            <div class="chat">
+
+
+                <!-- =================================================
+                     MESSAGES
+                ================================================== -->
+
+                <div
+                    class="messages"
+                    id="messages"
+                >
+
+
+                    <!-- =============================================
+                         WELCOME
+                    ============================================== -->
+
+                    <div
+                        class="welcome"
+                        id="welcome"
+                    >
+
+                        <div class="welcome-top">
+
+                            <div class="welcome-book">
+                                📖
+                            </div>
+
+                            <div>
+
+                                <div class="welcome-label">
+                                    Your Study Workspace
+                                </div>
+
+                                <h2>
+                                    What are you learning today?
+                                </h2>
+
+                            </div>
+
+                        </div>
+
+
+                        <p class="welcome-description">
+
+                            Ask questions, understand difficult
+                            concepts, prepare for exams, solve
+                            problems, create revision notes, or
+                            improve your programming skills.
+
+                        </p>
+
+
+                        <!-- =========================================
+                             STUDY CATEGORIES
+                        ========================================== -->
+
+                        <div class="section-heading">
+
+                            <h3>
+                                Start with a study task
+                            </h3>
+
+                            <span>
+                                Choose a topic
+                            </span>
+
+                        </div>
+
+
+                        <div class="study-grid">
+
+
+                            <button
+                                class="study-card"
+                                onclick="useSuggestion('Explain this concept in simple language with a clear example.')"
+                            >
+
+                                <div class="card-icon">
+                                    💡
+                                </div>
+
+                                <h4>
+                                    Understand
+                                </h4>
+
+                                <p>
+                                    Break difficult concepts
+                                    into simple explanations.
+                                </p>
+
+                            </button>
+
+
+                            <button
+                                class="study-card"
+                                onclick="useSuggestion('Help me prepare for my upcoming exam with a focused study plan.')"
+                            >
+
+                                <div class="card-icon">
+                                    📝
+                                </div>
+
+                                <h4>
+                                    Exam Prep
+                                </h4>
+
+                                <p>
+                                    Prepare topics, revision,
+                                    and exam strategies.
+                                </p>
+
+                            </button>
+
+
+                            <button
+                                class="study-card"
+                                onclick="useSuggestion('Solve this problem step by step and explain every important step.')"
+                            >
+
+                                <div class="card-icon">
+                                    ∑
+                                </div>
+
+                                <h4>
+                                    Solve
+                                </h4>
+
+                                <p>
+                                    Work through academic
+                                    problems step by step.
+                                </p>
+
+                            </button>
+
+
+                            <button
+                                class="study-card"
+                                onclick="useSuggestion('Create concise revision notes for this topic with important points.')"
+                            >
+
+                                <div class="card-icon">
+                                    📋
+                                </div>
+
+                                <h4>
+                                    Revision
+                                </h4>
+
+                                <p>
+                                    Turn a topic into clear
+                                    revision notes.
+                                </p>
+
+                            </button>
+
+
+                            <button
+                                class="study-card"
+                                onclick="useSuggestion('Help me understand and debug this programming code.')"
+                            >
+
+                                <div class="card-icon">
+                                    &lt;/&gt;
+                                </div>
+
+                                <h4>
+                                    Programming
+                                </h4>
+
+                                <p>
+                                    Learn coding concepts and
+                                    understand errors.
+                                </p>
+
+                            </button>
+
+
+                            <button
+                                class="study-card"
+                                onclick="useSuggestion('Give me practice questions on this topic and test my understanding.')"
+                            >
+
+                                <div class="card-icon">
+                                    ✓
+                                </div>
+
+                                <h4>
+                                    Practice
+                                </h4>
+
+                                <p>
+                                    Test your understanding
+                                    with useful questions.
+                                </p>
+
+                            </button>
+
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- =============================================
+                         TYPING
+                    ============================================== -->
+
+                    <div
+                        class="typing"
+                        id="typing"
+                    >
+
+                        <div class="avatar">
+                            📚
+                        </div>
+
+
+                        <div class="typing-bubble">
+
+                            <span class="typing-dot"></span>
+
+                            <span class="typing-dot"></span>
+
+                            <span class="typing-dot"></span>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- =================================================
+                     INPUT
+                ================================================== -->
+
+                <div class="input-area">
+
+
+                    <div class="input-box">
+
+                        <textarea
+                            id="messageInput"
+                            rows="1"
+                            maxlength="20000"
+                            placeholder="Ask about a subject, concept, problem, or exam..."
+                        ></textarea>
+
+
+                        <button
+                            class="send-button"
+                            id="sendButton"
+                            onclick="sendMessage()"
+                            title="Send"
+                        >
+
+                            <svg
+                                class="send-icon"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+
+                                <line
+                                    x1="22"
+                                    y1="2"
+                                    x2="11"
+                                    y2="13"
+                                ></line>
+
+                                <polygon
+                                    points="22 2 15 22 11 13 2 9 22 2"
+                                ></polygon>
+
+                            </svg>
+
+                        </button>
+
+                    </div>
+
+
+                    <div class="input-footer">
+
+                        <div class="input-note">
+
+                            <strong>
+                                Learning mode:
+                            </strong>
+
+                            Focus on understanding and reasoning.
+
+                        </div>
+
+
+                        <div class="shortcut">
+
+                            Enter to send · Shift + Enter for new line
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+
+<script>
+
+
+    // ============================================================
+    // API CONFIGURATION
+    // ============================================================
+
+    const API_URL =
+        "http://127.0.0.1:8000/chat";
+
+
+    // ============================================================
+    // STATE
+    // ============================================================
+
+    let conversation = [];
+
+    let isSending = false;
+
+
+    // ============================================================
+    // ELEMENTS
+    // ============================================================
+
+    const messagesElement =
+        document.getElementById("messages");
+
+    const inputElement =
+        document.getElementById("messageInput");
+
+    const sendButton =
+        document.getElementById("sendButton");
+
+    const typingElement =
+        document.getElementById("typing");
+
+    const welcomeElement =
+        document.getElementById("welcome");
+
+
+    // ============================================================
+    // AUTO RESIZE
+    // ============================================================
+
+    inputElement.addEventListener(
+        "input",
+        () => {
+
+            inputElement.style.height =
+                "auto";
+
+            inputElement.style.height =
+                Math.min(
+                    inputElement.scrollHeight,
+                    130
+                ) + "px";
+
+        }
+    );
+
+
+    // ============================================================
+    // ENTER TO SEND
+    // ============================================================
+
+    inputElement.addEventListener(
+        "keydown",
+        (event) => {
+
+            if (
+                event.key === "Enter" &&
+                !event.shiftKey
+            ) {
+
+                event.preventDefault();
+
+                sendMessage();
+
+            }
+
+        }
+    );
+
+
+    // ============================================================
+    // SUGGESTION
+    // ============================================================
+
+    function useSuggestion(text) {
+
+        inputElement.value =
+            text;
+
+        inputElement.dispatchEvent(
+            new Event("input")
+        );
+
+        inputElement.focus();
+
+    }
+
+
+    // ============================================================
+    // SIDEBAR PROMPT
+    // ============================================================
+
+    function setPrompt(text) {
+
+        inputElement.value =
+            text;
+
+        inputElement.dispatchEvent(
+            new Event("input")
+        );
+
+        inputElement.focus();
+
+    }
+
+
+    // ============================================================
+    // SEND MESSAGE
+    // ============================================================
+
+    async function sendMessage() {
+
+        if (isSending) {
+            return;
+        }
+
+
+        const text =
+            inputElement.value.trim();
+
+
+        if (!text) {
+            return;
+        }
+
+
+        // Hide welcome screen
+
+        if (welcomeElement) {
+
+            welcomeElement.style.display =
+                "none";
+
+        }
+
+
+        // Add user message
+
+        conversation.push({
+
+            role: "user",
+
+            content: text
+
+        });
+
+
+        addMessage(
+            "user",
+            text
+        );
+
+
+        // Clear input
+
+        inputElement.value = "";
+
+        inputElement.style.height =
+            "auto";
+
+
+        // Loading state
+
+        isSending = true;
+
+        sendButton.disabled =
+            true;
+
+        typingElement.classList.add(
+            "show"
+        );
+
+        scrollToBottom();
+
+
+        try {
+
+
+            // ================================================
+            // API REQUEST
+            // ================================================
+
+            const response =
+                await fetch(
+                    API_URL,
+                    {
+
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body: JSON.stringify({
+
+                            messages:
+                                conversation
+
+                        })
+
+                    }
+                );
+
+
+            // ================================================
+            // ERROR
+            // ================================================
+
+            if (!response.ok) {
+
+                let errorMessage =
+                    "Unable to get a response.";
+
+                try {
+
+                    const errorData =
+                        await response.json();
+
+                    if (
+                        errorData.detail
+                    ) {
+
+                        errorMessage =
+                            errorData.detail;
+
+                    }
+
+                } catch (_) {}
+
+                throw new Error(
+                    errorMessage
+                );
+
+            }
+
+
+            // ================================================
+            // RESPONSE
+            // ================================================
+
+            const data =
+                await response.json();
+
+
+            const assistantText =
+                data.response;
+
+
+            if (!assistantText) {
+
+                throw new Error(
+                    "The assistant returned an empty response."
+                );
+
+            }
+
+
+            // Save response
+
+            conversation.push({
+
+                role: "assistant",
+
+                content:
+                    assistantText
+
+            });
+
+
+            // Display response
+
+            addMessage(
+                "assistant",
+                assistantText
+            );
+
+
+        } catch (error) {
+
+
+            console.error(
+                "Academic Assistant Error:",
+                error
+            );
+
+
+            addMessage(
+                "assistant",
+                "I couldn't connect to the Academic Assistant. Please make sure the backend is running on port 8000."
+            );
+
+
+        } finally {
+
+
+            isSending = false;
+
+            sendButton.disabled =
+                false;
+
+            typingElement.classList.remove(
+                "show"
+            );
+
+            scrollToBottom();
+
+        }
+
+    }
+
+
+    // ============================================================
+    // ADD MESSAGE
+    // ============================================================
+
+    function addMessage(
+        role,
+        text
+    ) {
+
+
+        const message =
+            document.createElement(
+                "div"
+            );
+
+
+        message.className =
+            `message ${role}`;
+
+
+        // Avatar
+
+        const avatar =
+            document.createElement(
+                "div"
+            );
+
+
+        avatar.className =
+            "avatar";
+
+
+        avatar.textContent =
+            role === "assistant"
+                ? "📚"
+                : "U";
+
+
+        // Content
+
+        const content =
+            document.createElement(
+                "div"
+            );
+
+
+        content.className =
+            "message-content";
+
+
+        // Name
+
+        const name =
+            document.createElement(
+                "div"
+            );
+
+
+        name.className =
+            "message-name";
+
+
+        name.textContent =
+            role === "assistant"
+                ? "Academic Assistant"
+                : "You";
+
+
+        // Bubble
+
+        const bubble =
+            document.createElement(
+                "div"
+            );
+
+
+        bubble.className =
+            "bubble";
+
+
+        bubble.textContent =
+            text;
+
+
+        content.appendChild(
+            name
+        );
+
+        content.appendChild(
+            bubble
+        );
+
+
+        // Layout
+
+        if (
+            role === "assistant"
+        ) {
+
+            message.appendChild(
+                avatar
+            );
+
+            message.appendChild(
+                content
+            );
+
+        } else {
+
+            message.appendChild(
+                content
+            );
+
+            message.appendChild(
+                avatar
+            );
+
+        }
+
+
+        messagesElement.appendChild(
+            message
+        );
+
+
+        scrollToBottom();
+
+    }
+
+
+    // ============================================================
+    // SCROLL
+    // ============================================================
+
+    function scrollToBottom() {
+
+        setTimeout(
+            () => {
+
+                messagesElement.scrollTop =
+                    messagesElement.scrollHeight;
+
+            },
+            50
+        );
+
+    }
+
+
+    // ============================================================
+    // CLEAR CHAT
+    // ============================================================
+
+    function clearChat() {
+
+
+        conversation = [];
+
+
+        const messageElements =
+            messagesElement.querySelectorAll(
+                ".message"
+            );
+
+
+        messageElements.forEach(
+            element => {
+
+                element.remove();
+
+            }
+        );
+
+
+        welcomeElement.style.display =
+            "block";
+
+
+        inputElement.value =
+            "";
+
+
+        inputElement.style.height =
+            "auto";
+
+
+        inputElement.focus();
+
+    }
+
+
+    // ============================================================
+    // INITIAL FOCUS
+    // ============================================================
+
+    window.addEventListener(
+        "load",
+        () => {
+
+            inputElement.focus();
+
+        }
+    );
+
+
+</script>
+
+</body>
+</html>
